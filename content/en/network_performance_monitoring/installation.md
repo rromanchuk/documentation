@@ -52,31 +52,21 @@ To enable network performance monitoring with the Datadog Agent, use the followi
     sudo -u dd-agent cp /etc/datadog-agent/system-probe.yaml.example /etc/datadog-agent/system-probe.yaml
     ```
 
-3. Modify the system-probe configuration file to set the enable flag to `true`.<br>
-
-4. Optionally uncomment the `system_probe_config` parameter to add a custom object:
+3. Modify the system-probe configuration file to set the enabled flag to `true`.<br>
     ```
-    ## @param system_probe_config - custom object - optional
-    ## (...)
-    #
+    # /etc/datadog-agent/system-probe.yaml
     system_probe_config:
-    ```
-
-5. Enter specific configurations for your System Probe data collection:
-    ```
-    system_probe_config:
-        ## @param enabled - boolean - optional - default: false
-        ## Set to true to enable the System Probe.
-        #
         enabled: true
     ```
 
-6. Start the system-probe: `sudo service datadog-agent-sysprobe start`
-7. [Restart the Agent][2]: `sudo service datadog-agent restart`
-8. Enable the system-probe to start on boot: `sudo service enable datadog-agent-sysprobe`
+4. Stop the agent ([bug tracked here][3]): `sudo service datadog-agent stop`
+5. Start the system-probe: `sudo service datadog-agent-sysprobe start`
+6. [Restart the Agent][2]: `sudo service datadog-agent start`
+7. Enable the system-probe to start on boot: `sudo service enable datadog-agent-sysprobe`
 
 [1]: https://docs.datadoghq.com/graphing/infrastructure/process/?tab=linuxwindows#installation
 [2]: https://docs.datadoghq.com/agent/guide/agent-commands/#restart-the-agent
+[3]: https://github.com/DataDog/datadog-agent/pull/4553
 {{% /tab %}}
 {{% tab "Kubernetes" %}}
 
